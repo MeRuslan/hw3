@@ -93,7 +93,6 @@ foreach($row as $item){
         <td><?=$item[2]?></td>
         <td><?=$item[3]?></td>
         <td><?=$item[4]?></td>
-        <td><?=$item[5]?></td>
     </tr>
 
 
