@@ -30,74 +30,31 @@
 <br><br>
 
 
- <?php
+<?php
  
-   if (empty($_POST['fio']) or empty($_POST['amount']) or empty($_POST['comments'])) exit('заполните все поля');
-   if (isset($_POST['fio']) and isset($_POST['amount'])) 
-   {
+    if (empty($_POST['fio']) or empty($_POST['amount']) or empty($_POST['comments'])) exit('поля не заполнены');
+ 
+    $fio=$_POST['fio']; 
+    $amount=(int)$_POST['amount']; 
+    $comments=$_POST['comments']; 
+    $menu=$_POST['menu']; 
 
-		$fio=$_POST['fio']; 
-		$amount=(int)$_POST['amount']; 
-		$comments=$_POST['comments']; 
-		$menu=$_POST['menu']; 
-		
-		if ($menu == "guitar"){ $price = 26900; $item = "гитара";}
-		if ($menu == "cello"){ $price = 70900; $item = "виолончель";}
-		if ($menu == "piano"){ $price = 26790; $item = "фортепиано";}
-		if ($menu == "pipe"){ $price = 1499; $item = "дудка";}
-		$sum = $amount * $price;
+    if ($menu == "guitar"){ $price = 26900; $item = "гитара";}
+    if ($menu == "cello"){ $price = 70900; $item = "виолончель";}
+    if ($menu == "piano"){ $price = 26790; $item = "фортепиано";}
+    if ($menu == "pipe"){ $price = 1499; $item = "дудка";}
+    $sum = $amount * $price;
 
 
-		try {
-		    $csv = new CSV("1.csv");
+    try {
+        $csv = new CSV("a.csv");
 
-		    $arr = array("$fio;$amount;$item;$price;$sum;");
-		    $csv->setCSV($arr);
-		}
-		catch (Exception $e) { //Если csv файл не существует, выводим сообщение
-		    echo "Ошибка: " . $e->getMessage();
-		}
-
-		/*
-		echo "ваше имя:  <b> $fio</b><br>"; 
-		echo "товар:  <b> $item</b><br>";
-		echo "цена: <b> $price</b><br>";
-		echo "количество: <b> $amount</b><br>";
-		echo "итого к оплате: <b> $sum </b><br>";
-		*/
-   }
-   ?>
-
-
-<table>
-    <tr>
-        <th>имя</th>
-        <th>количество</th>
-        <th>товар</th>
-        <th>цена</th>
-        <th>итого</th>
-    </tr>
-<?php
-$handle = fopen("1.csv", "r");
-$size=filesize("1.csv");
-while (($data = fgetcsv($handle, $size, ";")) != FALSE) {
-$row[]=$data;
-}
-fclose($handle);
-foreach($row as $item){
-    ?>
-
-    <tr>
-        <td><?=$item[0]?></td>
-        <td><?=$item[1]?></td>
-        <td><?=$item[2]?></td>
-        <td><?=$item[3]?></td>
-        <td><?=$item[4]?></td>
-    </tr>
-
-
-<?php
-}
+        $arr = array("$fio;$amount;$item;$price;$sum;");
+        $csv->setCSV($arr);
+    }
+    catch (Exception $e) { //Если csv файл не существует, выводим сообщение
+        echo "Ошибка: " . $e->getMessage();
+	}
 ?>
 
 
